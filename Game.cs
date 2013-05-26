@@ -93,6 +93,7 @@ namespace CardsMultiplayer
 
         private void ShowError(int errornumber)
         {
+            label3.Text = ErrorHandler.GetErrorMessage(errornumber);
             developerOutput.AppendText("[ERROR PROMPT]Error " + errornumber + " Displayed." + Environment.NewLine);
             ErrorMessageInfo EMI = new ErrorMessageInfo(errornumber);
             ThreadPool.QueueUserWorkItem(showErrorThreadAccess, EMI);

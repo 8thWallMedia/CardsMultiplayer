@@ -20,12 +20,12 @@ namespace CardsMultiplayer
     */
     class ErrorHandler
     {
-        public static const int ERROR_INVALID_CREDENTIALS = 100;
-        public static const int ERROR_INVALID_LOGIN_OFFLINE = 101;
-        public static const int ERROR_INVALID_LOGIN_RESPONSE = 102;
-        public static const int ERROR_LOGINSERVER_TIMEOUT = 103;
-        public static const int ERROR_ACCOUNT_DISABLE = 104;
-        public static const int ERROR_HOST_BANNED = 105;
+        public const int ERROR_INVALID_CREDENTIALS = 100;
+        public const int ERROR_INVALID_LOGIN_OFFLINE = 101;
+        public const int ERROR_INVALID_LOGIN_RESPONSE = 102;
+        public const int ERROR_LOGINSERVER_TIMEOUT = 103;
+        public const int ERROR_ACCOUNT_DISABLE = 104;
+        public const int ERROR_HOST_BANNED = 105;
         public static string GetErrorMessage(int ErrorID)
         {
             switch (ErrorID)
