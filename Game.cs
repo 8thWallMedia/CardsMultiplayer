@@ -88,7 +88,7 @@ namespace CardsMultiplayer
         {
             string password = Security.md5(textBox2.Text);
             developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine);
-            ShowError(21);
+            ShowError(101);
         }
 
         private void ShowError(int errornumber)
