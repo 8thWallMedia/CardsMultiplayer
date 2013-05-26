@@ -58,9 +58,7 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
-    <Compile Include="Launcher.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Launcher.cs" />
     <Compile Include="Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>

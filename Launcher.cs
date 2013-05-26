@@ -4,6 +4,7 @@
  * Author: Cameron 
 */
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +45,7 @@ namespace CardsMultiplayer
         private void InitializeResource()
         {
             if (Directory.Exists(@"c:\Program Files (x86)\"))
-                ResourcePath = @"c:\Program Files (x86)\MagicOnline\resources\";
+                ResourcePath = Assembly.GetExecutingAssembly().Location + @"\resources\";
             else
                 ResourcePath = @"c:\Program Files\MagicOnline\resources\";
             SPSelection = new SoundPlayer(ResourcePath + @"\wav\mns1.wav");
