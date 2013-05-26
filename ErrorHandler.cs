@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace CardsMultiplayer
 {
     /*
+        Error Code 0 = Non-Error. Response OK
         Error Codes 1-99 = Launcher Errors
         Error Codes 100-199 = Login Errors
         Error Codes A200-C299 = Runtime Errors
@@ -26,6 +27,7 @@ namespace CardsMultiplayer
         public const int ERROR_LOGINSERVER_TIMEOUT = 103;
         public const int ERROR_ACCOUNT_DISABLE = 104;
         public const int ERROR_HOST_BANNED = 105;
+        
         public static string GetErrorMessage(int ErrorID)
         {
             switch (ErrorID)
