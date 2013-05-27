@@ -23,12 +23,15 @@ namespace CardsMultiplayer
         public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 
         public int Cursor_Launcher_Normal = 1;
+        public int Cursor_Launcher_Hand = 2;
 
 
         public Cursor getCursor(int CursorValue)
         {
             if (CursorValue == Cursor_Launcher_Normal)
-                return CreateCursor(Properties.Resources.Sword_icon, 0, 0);
+                return CreateCursor(Properties.Resources.CursorImage, 0, 0);
+            if (CursorValue == Cursor_Launcher_Hand)
+                return CreateCursor(Properties.Resources.CursorImage2, 0, 0);
             return null;
         }
 

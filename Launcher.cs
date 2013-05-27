@@ -37,7 +37,7 @@ namespace CardsMultiplayer
         private void InitializeCursor()
         {
             Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
-            pictureBox2.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
+            pictureBox2.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Hand);
             richTextBox1.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
             panel1.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
         }
@@ -45,7 +45,7 @@ namespace CardsMultiplayer
         private void InitializeResource()
         {
             if (Directory.Exists(@"c:\Program Files (x86)\"))
-                ResourcePath = Assembly.GetExecutingAssembly().Location + @"\resources\";
+                ResourcePath = @"c:\Program Files (x86)\MagicOnline\resources\";
             else
                 ResourcePath = @"c:\Program Files\MagicOnline\resources\";
             SPSelection = new SoundPlayer(ResourcePath + @"\wav\mns1.wav");

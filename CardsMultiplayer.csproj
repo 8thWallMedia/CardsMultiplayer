@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientCursors.cs" />
+    <Compile Include="ConnectionManager.cs" />
     <Compile Include="Disclaimer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,7 +59,9 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
-    <Compile Include="Launcher.cs" />
+    <Compile Include="Launcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
@@ -114,6 +117,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RoundedRec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoginButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoginButtonSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RegisterButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RegisterButtonSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CursorImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CursorImage2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackButtonSelected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

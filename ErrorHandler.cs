@@ -15,18 +15,23 @@ namespace CardsMultiplayer
         Error Code 0 = Non-Error. Response OK
         Error Codes 1-99 = Launcher Errors
         Error Codes 100-199 = Login Errors
-        Error Codes A200-C299 = Runtime Errors
+        Error Codes 200-599 = Runtime Errors
         Error Ending -1 = Error Reported
         Error Ending -0 = Error Not Reported
     */
     class ErrorHandler
     {
-        public const int ERROR_INVALID_CREDENTIALS = 100;
-        public const int ERROR_INVALID_LOGIN_OFFLINE = 101;
-        public const int ERROR_INVALID_LOGIN_RESPONSE = 102;
-        public const int ERROR_LOGINSERVER_TIMEOUT = 103;
-        public const int ERROR_ACCOUNT_DISABLE = 104;
-        public const int ERROR_HOST_BANNED = 105;
+        //Login Errors
+        public const int LOGIN_OK = 100;
+        public const int ERROR_INVALID_CREDENTIALS = 101;
+        public const int ERROR_INVALID_LOGIN_OFFLINE = 102;
+        public const int ERROR_INVALID_LOGIN_RESPONSE = 103;
+        public const int ERROR_LOGINSERVER_TIMEOUT = 104;
+        public const int ERROR_ACCOUNT_DISABLE = 1055;
+        public const int ERROR_HOST_BANNED = 106;
+
+        //Runtime Errors
+        public const int ERROR_AUTH_MISMATCH = 200;
         
         public static string GetErrorMessage(int ErrorID)
         {
