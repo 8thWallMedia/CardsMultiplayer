@@ -41,8 +41,8 @@ namespace CardsMultiplayer
         {
             registerPanel.Width = 490;
             registerPanel.Height = 529;
-            authenticationPanel.Width = 394;
-            authenticationPanel.Height = 504;
+            authenticationPanel.Width = 504;
+            authenticationPanel.Height = 394;
             Cursor.Hide();
             panel1.Hide();
             registerPanel.Hide();
@@ -116,10 +116,10 @@ namespace CardsMultiplayer
 
         private void ShowError(int errornumber)
         {
-            label3.Text = "[" + errornumber + "] " + ErrorHandler.GetErrorMessage(errornumber);
-            developerOutput.AppendText("[ERROR PROMPT]Error " + errornumber + " Displayed." + Environment.NewLine);
+            label3.Invoke(new MethodInvoker(() => label3.Text = "[" + errornumber + "] " + ErrorHandler.GetErrorMessage(errornumber)));
+            developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("[ERROR PROMPT]Error " + errornumber + " Displayed." + Environment.NewLine)));
             ErrorMessageInfo EMI = new ErrorMessageInfo(errornumber);
-            ThreadPool.QueueUserWorkItem(showErrorThreadAccess, EMI);
+            showErrorThreadAccess(EMI);
         }
 
         private void showErrorThreadAccess(object state)
@@ -146,6 +146,8 @@ namespace CardsMultiplayer
                 } while (errorPanel.BackColor.A > 0);
                 pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = true));
                 pictureBox5.Invoke(new MethodInvoker(() => pictureBox5.Enabled = true));
+                textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = true));
+                textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = true));
             }
             catch (ArgumentException)
             {
@@ -172,18 +174,24 @@ namespace CardsMultiplayer
             pictureBox5.Image = Properties.Resources.LoginButton;
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void DoLogin(object state)
         {
-            ConnectionManager CM = new ConnectionManager(System.Net.IPAddress.Parse("192.168.254.103"));
-            string password = Security.md5(textBox2.Text);
+
+            textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = false));
+            textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = false));
+            ConnectionManager CM = new ConnectionManager("vbproject.redirectme.net");
+            string password = "";
+            string username = "";
+            textBox2.Invoke(new MethodInvoker(() => password = Security.md5(textBox2.Text)));
+            textBox1.Invoke(new MethodInvoker(() => username = textBox1.Text));
             int ResponseCode = 0;
             if (ACTION_REGISTER)
             {
                 ResponseCode = Convert.ToInt32(CM.sendSignal("command=regauth;username=" + textBox1.Text + ";password=" + textBox2.Text, true));
                 if (ResponseCode == 600)
                 {
-                    textBox2.Text = "";
-                    label2.Text = "Password";
+                    textBox2.Invoke(new MethodInvoker(() => textBox2.Text = ""));
+                    label2.Invoke(new MethodInvoker(() => label2.Text = "Password"));
                     ACTION_REGISTER = false;
                 }
                 else
@@ -193,23 +201,30 @@ namespace CardsMultiplayer
             }
             else
             {
-                ResponseCode = Convert.ToInt32(CM.sendSignal("command=auth;username=" + textBox1.Text + ";password=" + password, true));
-                developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine);
+                ResponseCode = Convert.ToInt32(CM.sendSignal("command=auth;username=" + username + ";password=" + password, true));
+                developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine)));
                 if (ResponseCode == ErrorHandler.LOGIN_OK)
                 {
                     MessageBox.Show("LOGIN OK");
                 }
                 else if (ResponseCode == ErrorHandler.NOERROR_REGISTRATION_VALIDATION)
                 {
-                    label2.Text = "Registration Code (from validation email)";
-                    textBox2.Text = "";
-                    textBox1.Enabled = false;
+                    label2.Invoke(new MethodInvoker(() => label2.Text = "Registration Code (from validation email)"));
+                    textBox2.Invoke(new MethodInvoker(() => textBox2.Text = ""));
+                    textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = false));
                     ShowError(ResponseCode);
                     ACTION_REGISTER = true;
                 }
                 else
                     ShowError(ResponseCode);
             }
+            authenticationPanel.Invoke(new MethodInvoker(() => authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.CursorImage, 0, 0)));
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.Sword_icon_animated, 0, 0);
+            ThreadPool.QueueUserWorkItem(DoLogin);            
         }
 
         private void authenticationPanel_Paint(object sender, PaintEventArgs e)

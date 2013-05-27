@@ -11,20 +11,20 @@ namespace CardsMultiplayer
     class ConnectionManager
     {
         int port = 5891;
-        IPAddress IPADDR;
+        string HOST;
         TcpClient client;
         //TcpListener listener;
 
-        public ConnectionManager(IPAddress address)
+        public ConnectionManager(string host)
         {
-            IPADDR = address;
+            HOST = host;
         }
 
         public string sendSignal(string signal, bool response)
         {
             try
             {
-                client = new TcpClient(IPADDR.ToString(), port);
+                client = new TcpClient(HOST, port);
                 if (!response) signal += ";noresponse=true";
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(signal);
                 NetworkStream stream = client.GetStream();
