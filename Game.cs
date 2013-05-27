@@ -19,6 +19,7 @@ namespace CardsMultiplayer
 {
     public partial class Game : Form
     {
+        public bool ACTION_REGISTER = false;
         ClientCursors clientCursors = new ClientCursors();
         WindowsScreenInteract WinAPI = new WindowsScreenInteract();
         public string PasswordInputText = "";
@@ -38,9 +39,13 @@ namespace CardsMultiplayer
 
         private void Game_Load(object sender, EventArgs e)
         {
+            registerPanel.Width = 490;
+            registerPanel.Height = 529;
+            authenticationPanel.Width = 394;
+            authenticationPanel.Height = 504;
             Cursor.Hide();
             panel1.Hide();
-            panel2.Hide();
+            registerPanel.Hide();
             WinAPI.Maximize(this);
             Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
             textBox1.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
@@ -65,9 +70,9 @@ namespace CardsMultiplayer
             authenticationPanel.BackColor = Color.FromArgb(100, Color.Black);
             authenticationPanel.Location = new Point(this.ClientSize.Width / 2 - authenticationPanel.Size.Width / 2, this.ClientSize.Height / 2 - authenticationPanel.Size.Height / 2);
             authenticationPanel.Anchor = AnchorStyles.None;
-            panel2.BackColor = Color.FromArgb(100, Color.Black);
-            panel2.Location = new Point(this.ClientSize.Width / 2 - panel2.Size.Width / 2, this.ClientSize.Height / 2 - panel2.Size.Height / 2);
-            panel2.Anchor = AnchorStyles.None; 
+            registerPanel.BackColor = Color.FromArgb(100, Color.Black);
+            registerPanel.Location = new Point(this.ClientSize.Width / 2 - registerPanel.Size.Width / 2, this.ClientSize.Height / 2 - registerPanel.Size.Height / 2);
+            registerPanel.Anchor = AnchorStyles.None; 
 
             Disclaimer D = new Disclaimer();
             D.TopMost = true;
@@ -106,7 +111,7 @@ namespace CardsMultiplayer
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             authenticationPanel.Hide();
-            panel2.Show();
+            registerPanel.Show();
         }
 
         private void ShowError(int errornumber)
@@ -128,15 +133,15 @@ namespace CardsMultiplayer
                 label3.Invoke(new MethodInvoker(() => label3.Hide()));
                 do
                 {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) + 15, Color.Red)));
+                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) + 50, Color.Red)));
                     Thread.Sleep(10);
-                } while (errorPanel.BackColor.A < 255);
+                } while (errorPanel.BackColor.A < 200);
                 label3.Invoke(new MethodInvoker(() => label3.Show()));
                 Thread.Sleep(3000);
                 label3.Invoke(new MethodInvoker(() => label3.Hide()));
                 do
                 {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) - 15, Color.Red)));
+                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) - 50, Color.Red)));
                     Thread.Sleep(10);
                 } while (errorPanel.BackColor.A > 0);
                 pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = true));
@@ -171,14 +176,40 @@ namespace CardsMultiplayer
         {
             ConnectionManager CM = new ConnectionManager(System.Net.IPAddress.Parse("192.168.254.103"));
             string password = Security.md5(textBox2.Text);
-            int ResponseCode = Convert.ToInt32(CM.sendSignal("command=auth;username=" + textBox1.Text + ";password=" + password, true));
-            developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine);
-            if (ResponseCode == ErrorHandler.LOGIN_OK)
+            int ResponseCode = 0;
+            if (ACTION_REGISTER)
             {
-                MessageBox.Show("LOGIN OK");
+                ResponseCode = Convert.ToInt32(CM.sendSignal("command=regauth;username=" + textBox1.Text + ";password=" + textBox2.Text, true));
+                if (ResponseCode == 600)
+                {
+                    textBox2.Text = "";
+                    label2.Text = "Password";
+                    ACTION_REGISTER = false;
+                }
+                else
+                {
+                    ShowError(ResponseCode);
+                }
             }
             else
-                ShowError(ResponseCode);
+            {
+                ResponseCode = Convert.ToInt32(CM.sendSignal("command=auth;username=" + textBox1.Text + ";password=" + password, true));
+                developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine);
+                if (ResponseCode == ErrorHandler.LOGIN_OK)
+                {
+                    MessageBox.Show("LOGIN OK");
+                }
+                else if (ResponseCode == ErrorHandler.NOERROR_REGISTRATION_VALIDATION)
+                {
+                    label2.Text = "Registration Code (from validation email)";
+                    textBox2.Text = "";
+                    textBox1.Enabled = false;
+                    ShowError(ResponseCode);
+                    ACTION_REGISTER = true;
+                }
+                else
+                    ShowError(ResponseCode);
+            }
         }
 
         private void authenticationPanel_Paint(object sender, PaintEventArgs e)
@@ -188,7 +219,7 @@ namespace CardsMultiplayer
 
         private void pictureBox11_Click(object sender, EventArgs e)
         {
-            panel2.Hide();
+            registerPanel.Hide();
             authenticationPanel.Show();
         }
 

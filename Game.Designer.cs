@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.registerPanel = new System.Windows.Forms.Panel();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.REGISTER_Email = new System.Windows.Forms.RichTextBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
@@ -60,7 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.registerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -82,7 +82,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.registerPanel);
             this.panel1.Controls.Add(this.developerOutput);
             this.panel1.Controls.Add(this.authenticationPanel);
             this.panel1.Controls.Add(this.pictureBox4);
@@ -91,28 +91,28 @@
             this.panel1.Size = new System.Drawing.Size(1623, 915);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
+            // registerPanel
             // 
-            this.panel2.Controls.Add(this.pictureBox11);
-            this.panel2.Controls.Add(this.REGISTER_Email);
-            this.panel2.Controls.Add(this.pictureBox10);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.REGISTER_Password2);
-            this.panel2.Controls.Add(this.pictureBox6);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.REGISTER_Password);
-            this.panel2.Controls.Add(this.REGISTER_MessagePanel);
-            this.panel2.Controls.Add(this.Register_USERNAME);
-            this.panel2.Controls.Add(this.pictureBox7);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.pictureBox8);
-            this.panel2.Controls.Add(this.pictureBox9);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(513, 125);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(528, 484);
-            this.panel2.TabIndex = 15;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.registerPanel.Controls.Add(this.pictureBox11);
+            this.registerPanel.Controls.Add(this.REGISTER_Email);
+            this.registerPanel.Controls.Add(this.pictureBox10);
+            this.registerPanel.Controls.Add(this.label8);
+            this.registerPanel.Controls.Add(this.REGISTER_Password2);
+            this.registerPanel.Controls.Add(this.pictureBox6);
+            this.registerPanel.Controls.Add(this.label7);
+            this.registerPanel.Controls.Add(this.REGISTER_Password);
+            this.registerPanel.Controls.Add(this.REGISTER_MessagePanel);
+            this.registerPanel.Controls.Add(this.Register_USERNAME);
+            this.registerPanel.Controls.Add(this.pictureBox7);
+            this.registerPanel.Controls.Add(this.label5);
+            this.registerPanel.Controls.Add(this.pictureBox8);
+            this.registerPanel.Controls.Add(this.pictureBox9);
+            this.registerPanel.Controls.Add(this.label6);
+            this.registerPanel.Location = new System.Drawing.Point(1440, 7);
+            this.registerPanel.Name = "registerPanel";
+            this.registerPanel.Size = new System.Drawing.Size(18, 16);
+            this.registerPanel.TabIndex = 15;
+            this.registerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // pictureBox11
             // 
@@ -338,9 +338,9 @@
             this.authenticationPanel.Controls.Add(this.pictureBox1);
             this.authenticationPanel.Controls.Add(this.pictureBox3);
             this.authenticationPanel.Controls.Add(this.label2);
-            this.authenticationPanel.Location = new System.Drawing.Point(3, 125);
+            this.authenticationPanel.Location = new System.Drawing.Point(1412, 0);
             this.authenticationPanel.Name = "authenticationPanel";
-            this.authenticationPanel.Size = new System.Drawing.Size(504, 394);
+            this.authenticationPanel.Size = new System.Drawing.Size(22, 19);
             this.authenticationPanel.TabIndex = 11;
             this.authenticationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.authenticationPanel_Paint);
             // 
@@ -379,7 +379,6 @@
             this.errorPanel.Name = "errorPanel";
             this.errorPanel.Size = new System.Drawing.Size(492, 41);
             this.errorPanel.TabIndex = 11;
-            this.errorPanel.Visible = false;
             // 
             // label3
             // 
@@ -494,8 +493,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Game_FormClosing);
             this.Load += new System.EventHandler(this.Game_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.registerPanel.ResumeLayout(false);
+            this.registerPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -532,7 +531,7 @@
         private System.Windows.Forms.RichTextBox developerOutput;
         private RichPassword textBox2;
         private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel registerPanel;
         private System.Windows.Forms.RichTextBox REGISTER_Email;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.Label label8;
