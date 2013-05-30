@@ -46,6 +46,7 @@ namespace CardsMultiplayer
         {
             switch (ErrorID)
             {
+                case LOGIN_OK: return "Your credentials were validated.";
                 case ERROR_INVALID_CREDENTIALS: return "The username/password was incorrect.";
                 case ERROR_INVALID_LOGIN_OFFLINE: return "The login server is offline.";
                 case ERROR_INVALID_LOGIN_RESPONSE: return "The server returned an unexpected response.";

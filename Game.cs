@@ -39,7 +39,7 @@ namespace CardsMultiplayer
 
         private void Game_Load(object sender, EventArgs e)
         {
-            registerPanel.Width = 490;
+            registerPanel.Width = 529;
             registerPanel.Height = 529;
             authenticationPanel.Width = 504;
             authenticationPanel.Height = 394;
@@ -129,11 +129,11 @@ namespace CardsMultiplayer
             try
             {
                 ErrorMessageInfo EMI = (ErrorMessageInfo)state;
-                errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb(0, Color.Red)));
+                errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb(0, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
                 label3.Invoke(new MethodInvoker(() => label3.Hide()));
                 do
                 {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) + 50, Color.Red)));
+                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) + 50, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
                     Thread.Sleep(10);
                 } while (errorPanel.BackColor.A < 200);
                 label3.Invoke(new MethodInvoker(() => label3.Show()));
@@ -141,17 +141,15 @@ namespace CardsMultiplayer
                 label3.Invoke(new MethodInvoker(() => label3.Hide()));
                 do
                 {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) - 50, Color.Red)));
+                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) - 50, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
                     Thread.Sleep(10);
                 } while (errorPanel.BackColor.A > 0);
-                pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = true));
-                pictureBox5.Invoke(new MethodInvoker(() => pictureBox5.Enabled = true));
-                textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = true));
-                textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = true));
+                
             }
             catch (ArgumentException)
             {
             }
+            
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
@@ -205,7 +203,12 @@ namespace CardsMultiplayer
                 developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine)));
                 if (ResponseCode == ErrorHandler.LOGIN_OK)
                 {
-                    MessageBox.Show("LOGIN OK");
+                    developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("LOGIN OK" + Environment.NewLine)));
+                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb(0, 0, 255, 0)));
+                    ShowError(100);
+                    authenticationPanel.Hide();
+                    MainGameForm MGF = new MainGameForm(username, password);
+                    MGF.ShowDialog();
                 }
                 else if (ResponseCode == ErrorHandler.NOERROR_REGISTRATION_VALIDATION)
                 {
@@ -219,6 +222,10 @@ namespace CardsMultiplayer
                     ShowError(ResponseCode);
             }
             authenticationPanel.Invoke(new MethodInvoker(() => authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.CursorImage, 0, 0)));
+            pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = true));
+            pictureBox5.Invoke(new MethodInvoker(() => pictureBox5.Enabled = true));
+            textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = true));
+            textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = true));
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
@@ -276,6 +283,7 @@ namespace CardsMultiplayer
         private void pictureBox8_Click(object sender, EventArgs e)
         {
             REGISTER_Label.Text = "Please wait, processing your request..";
+            REGISTER_Label.Show();
         }
 
         private void pictureBox8_MouseEnter(object sender, EventArgs e)

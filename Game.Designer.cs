@@ -108,9 +108,9 @@
             this.registerPanel.Controls.Add(this.pictureBox8);
             this.registerPanel.Controls.Add(this.pictureBox9);
             this.registerPanel.Controls.Add(this.label6);
-            this.registerPanel.Location = new System.Drawing.Point(1440, 7);
+            this.registerPanel.Location = new System.Drawing.Point(1448, 7);
             this.registerPanel.Name = "registerPanel";
-            this.registerPanel.Size = new System.Drawing.Size(18, 16);
+            this.registerPanel.Size = new System.Drawing.Size(10, 10);
             this.registerPanel.TabIndex = 15;
             this.registerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -338,9 +338,9 @@
             this.authenticationPanel.Controls.Add(this.pictureBox1);
             this.authenticationPanel.Controls.Add(this.pictureBox3);
             this.authenticationPanel.Controls.Add(this.label2);
-            this.authenticationPanel.Location = new System.Drawing.Point(1412, 0);
+            this.authenticationPanel.Location = new System.Drawing.Point(1424, 0);
             this.authenticationPanel.Name = "authenticationPanel";
-            this.authenticationPanel.Size = new System.Drawing.Size(22, 19);
+            this.authenticationPanel.Size = new System.Drawing.Size(10, 10);
             this.authenticationPanel.TabIndex = 11;
             this.authenticationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.authenticationPanel_Paint);
             // 
