@@ -63,6 +63,16 @@ namespace CardsMultiplayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _34LDk {
+            get {
+                object obj = ResourceManager.GetObject("34LDk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BackButton {
             get {
                 object obj = ResourceManager.GetObject("BackButton", resourceCulture);
@@ -83,6 +93,16 @@ namespace CardsMultiplayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Button_Ok_icon {
+            get {
+                object obj = ResourceManager.GetObject("Button-Ok-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CursorImage {
             get {
                 object obj = ResourceManager.GetObject("CursorImage", resourceCulture);
@@ -96,6 +116,16 @@ namespace CardsMultiplayer.Properties {
         internal static System.Drawing.Bitmap CursorImage2 {
             get {
                 object obj = ResourceManager.GetObject("CursorImage2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Letter_X_red_icon {
+            get {
+                object obj = ResourceManager.GetObject("Letter-X-red-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,6 +226,16 @@ namespace CardsMultiplayer.Properties {
         internal static System.Drawing.Bitmap Sword_icon_animated {
             get {
                 object obj = ResourceManager.GetObject("Sword-icon-animated", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TEXTURE_Concrete {
+            get {
+                object obj = ResourceManager.GetObject("TEXTURE_Concrete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

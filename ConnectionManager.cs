@@ -20,29 +20,70 @@ namespace CardsMultiplayer
             HOST = host;
         }
 
-        public string sendSignal(string signal, bool response)
+        public void sendSignal(Object StateObject) //For async stuff
+        {
+            SignalState state = StateObject as SignalState;
+            try
+            {
+                if (state != null)
+                {
+                    client = new TcpClient(HOST, port);
+                    string signal = state.command;
+                    if (!state.returnResult) signal += ";noresponse=true";
+                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(signal);
+                    NetworkStream stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                    String responseData = "-1";
+                    if (state.returnResult)
+                    {
+                        data = new Byte[256];
+                        int bytes = stream.Read(data, 0, data.Length);
+                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    }
+                    stream.Close();
+                    client.Close();
+                    state.eventWaitHandle.Set();
+                }
+            }
+            catch (SocketException SE)
+            {
+                state.result = SE.ErrorCode;
+                state.eventWaitHandle.Set();
+            }
+            catch
+            {
+                state.result = -1;
+                state.eventWaitHandle.Set();
+            }
+        }
+
+        public int sendSignal(string signal, bool returnresult) //For async stuff
         {
             try
             {
                 client = new TcpClient(HOST, port);
-                if (!response) signal += ";noresponse=true";
+                if (!returnresult) signal += ";noresponse=true";
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(signal);
                 NetworkStream stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
                 String responseData = "-1";
-                if (response)
+                if (returnresult)
                 {
                     data = new Byte[256];
-                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    int bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 }
                 stream.Close();
                 client.Close();
-                return responseData;
+                return Convert.ToInt32(responseData);
+            }
+            catch (SocketException SE)
+            {
+                return SE.ErrorCode;
             }
             catch
             {
-                return "-1";
+                return -1;
             }
         }
 

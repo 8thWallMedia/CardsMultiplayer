@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.registerPanel = new System.Windows.Forms.Panel();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.REGISTER_Email = new System.Windows.Forms.RichTextBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.REGISTER_Password2 = new CardsMultiplayer.RichPassword();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.REGISTER_Password = new CardsMultiplayer.RichPassword();
             this.REGISTER_MessagePanel = new System.Windows.Forms.Panel();
             this.REGISTER_Label = new System.Windows.Forms.Label();
             this.Register_USERNAME = new System.Windows.Forms.RichTextBox();
@@ -49,7 +48,6 @@
             this.developerOutput = new System.Windows.Forms.RichTextBox();
             this.authenticationPanel = new System.Windows.Forms.Panel();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new CardsMultiplayer.RichPassword();
             this.errorPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.RichTextBox();
@@ -59,6 +57,10 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.LoginThreadTimer = new System.Windows.Forms.Timer(this.components);
+            this.REGISTER_Password2 = new CardsMultiplayer.RichPassword();
+            this.REGISTER_Password = new CardsMultiplayer.RichPassword();
+            this.textBox2 = new CardsMultiplayer.RichPassword();
             this.panel1.SuspendLayout();
             this.registerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
@@ -108,9 +110,9 @@
             this.registerPanel.Controls.Add(this.pictureBox8);
             this.registerPanel.Controls.Add(this.pictureBox9);
             this.registerPanel.Controls.Add(this.label6);
-            this.registerPanel.Location = new System.Drawing.Point(1448, 7);
+            this.registerPanel.Location = new System.Drawing.Point(3, 125);
             this.registerPanel.Name = "registerPanel";
-            this.registerPanel.Size = new System.Drawing.Size(10, 10);
+            this.registerPanel.Size = new System.Drawing.Size(750, 485);
             this.registerPanel.TabIndex = 15;
             this.registerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -138,7 +140,7 @@
             this.REGISTER_Email.MaxLength = 25;
             this.REGISTER_Email.Multiline = false;
             this.REGISTER_Email.Name = "REGISTER_Email";
-            this.REGISTER_Email.Size = new System.Drawing.Size(483, 23);
+            this.REGISTER_Email.Size = new System.Drawing.Size(716, 23);
             this.REGISTER_Email.TabIndex = 19;
             this.REGISTER_Email.Text = "";
             // 
@@ -148,7 +150,7 @@
             this.pictureBox10.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox10.Location = new System.Drawing.Point(10, 359);
             this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(504, 47);
+            this.pictureBox10.Size = new System.Drawing.Size(737, 47);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox10.TabIndex = 17;
             this.pictureBox10.TabStop = false;
@@ -166,27 +168,13 @@
             this.label8.TabIndex = 18;
             this.label8.Text = "Email Address";
             // 
-            // REGISTER_Password2
-            // 
-            this.REGISTER_Password2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.REGISTER_Password2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.REGISTER_Password2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.REGISTER_Password2.Location = new System.Drawing.Point(17, 284);
-            this.REGISTER_Password2.MaxLength = 40;
-            this.REGISTER_Password2.Multiline = false;
-            this.REGISTER_Password2.Name = "REGISTER_Password2";
-            this.REGISTER_Password2.ShortcutsEnabled = false;
-            this.REGISTER_Password2.Size = new System.Drawing.Size(484, 24);
-            this.REGISTER_Password2.TabIndex = 16;
-            this.REGISTER_Password2.Text = "";
-            // 
             // pictureBox6
             // 
             this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox6.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox6.Location = new System.Drawing.Point(9, 272);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(505, 47);
+            this.pictureBox6.Size = new System.Drawing.Size(738, 47);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 14;
             this.pictureBox6.TabStop = false;
@@ -204,26 +192,12 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Confirm Password";
             // 
-            // REGISTER_Password
-            // 
-            this.REGISTER_Password.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.REGISTER_Password.Cursor = System.Windows.Forms.Cursors.Default;
-            this.REGISTER_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.REGISTER_Password.Location = new System.Drawing.Point(17, 195);
-            this.REGISTER_Password.MaxLength = 40;
-            this.REGISTER_Password.Multiline = false;
-            this.REGISTER_Password.Name = "REGISTER_Password";
-            this.REGISTER_Password.ShortcutsEnabled = false;
-            this.REGISTER_Password.Size = new System.Drawing.Size(484, 24);
-            this.REGISTER_Password.TabIndex = 13;
-            this.REGISTER_Password.Text = "";
-            // 
             // REGISTER_MessagePanel
             // 
             this.REGISTER_MessagePanel.Controls.Add(this.REGISTER_Label);
             this.REGISTER_MessagePanel.Location = new System.Drawing.Point(9, 4);
             this.REGISTER_MessagePanel.Name = "REGISTER_MessagePanel";
-            this.REGISTER_MessagePanel.Size = new System.Drawing.Size(516, 41);
+            this.REGISTER_MessagePanel.Size = new System.Drawing.Size(738, 41);
             this.REGISTER_MessagePanel.TabIndex = 11;
             // 
             // REGISTER_Label
@@ -249,7 +223,7 @@
             this.Register_USERNAME.MaxLength = 25;
             this.Register_USERNAME.Multiline = false;
             this.Register_USERNAME.Name = "Register_USERNAME";
-            this.Register_USERNAME.Size = new System.Drawing.Size(484, 23);
+            this.Register_USERNAME.Size = new System.Drawing.Size(717, 23);
             this.Register_USERNAME.TabIndex = 9;
             this.Register_USERNAME.Text = "";
             // 
@@ -259,7 +233,7 @@
             this.pictureBox7.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox7.Location = new System.Drawing.Point(9, 94);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(505, 47);
+            this.pictureBox7.Size = new System.Drawing.Size(738, 47);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 2;
             this.pictureBox7.TabStop = false;
@@ -281,7 +255,7 @@
             // 
             this.pictureBox8.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox8.Image = global::CardsMultiplayer.Properties.Resources.RegisterButton;
-            this.pictureBox8.Location = new System.Drawing.Point(335, 419);
+            this.pictureBox8.Location = new System.Drawing.Point(555, 419);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(179, 55);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -297,7 +271,7 @@
             this.pictureBox9.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox9.Location = new System.Drawing.Point(9, 183);
             this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(505, 47);
+            this.pictureBox9.Size = new System.Drawing.Size(738, 47);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox9.TabIndex = 5;
             this.pictureBox9.TabStop = false;
@@ -338,17 +312,18 @@
             this.authenticationPanel.Controls.Add(this.pictureBox1);
             this.authenticationPanel.Controls.Add(this.pictureBox3);
             this.authenticationPanel.Controls.Add(this.label2);
-            this.authenticationPanel.Location = new System.Drawing.Point(1424, 0);
+            this.authenticationPanel.Location = new System.Drawing.Point(759, 182);
             this.authenticationPanel.Name = "authenticationPanel";
-            this.authenticationPanel.Size = new System.Drawing.Size(10, 10);
+            this.authenticationPanel.Size = new System.Drawing.Size(511, 372);
             this.authenticationPanel.TabIndex = 11;
+            this.authenticationPanel.VisibleChanged += new System.EventHandler(this.authenticationPanel_VisibleChanged);
             this.authenticationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.authenticationPanel_Paint);
             // 
             // pictureBox5
             // 
             this.pictureBox5.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox5.Image = global::CardsMultiplayer.Properties.Resources.LoginButton;
-            this.pictureBox5.Location = new System.Drawing.Point(255, 304);
+            this.pictureBox5.Location = new System.Drawing.Point(9, 304);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(179, 55);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -357,20 +332,6 @@
             this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
             this.pictureBox5.MouseEnter += new System.EventHandler(this.pictureBox5_MouseEnter);
             this.pictureBox5.MouseLeave += new System.EventHandler(this.pictureBox5_MouseLeave);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox2.Font = new System.Drawing.Font("Lucida Sans Unicode", 20F, System.Drawing.FontStyle.Italic);
-            this.textBox2.Location = new System.Drawing.Point(17, 252);
-            this.textBox2.MaxLength = 40;
-            this.textBox2.Multiline = false;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ShortcutsEnabled = false;
-            this.textBox2.Size = new System.Drawing.Size(404, 35);
-            this.textBox2.TabIndex = 13;
-            this.textBox2.Text = "";
             // 
             // errorPanel
             // 
@@ -403,7 +364,7 @@
             this.textBox1.MaxLength = 25;
             this.textBox1.Multiline = false;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(404, 35);
+            this.textBox1.Size = new System.Drawing.Size(469, 35);
             this.textBox1.TabIndex = 9;
             this.textBox1.Text = "";
             // 
@@ -413,7 +374,7 @@
             this.pictureBox2.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox2.Location = new System.Drawing.Point(9, 94);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(425, 58);
+            this.pictureBox2.Size = new System.Drawing.Size(492, 58);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -435,7 +396,7 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBox1.Image = global::CardsMultiplayer.Properties.Resources.RegisterButton;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 304);
+            this.pictureBox1.Location = new System.Drawing.Point(322, 304);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(179, 55);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -451,7 +412,7 @@
             this.pictureBox3.Image = global::CardsMultiplayer.Properties.Resources.RoundedRec;
             this.pictureBox3.Location = new System.Drawing.Point(9, 240);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(425, 58);
+            this.pictureBox3.Size = new System.Drawing.Size(492, 58);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 5;
             this.pictureBox3.TabStop = false;
@@ -478,6 +439,52 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 7;
             this.pictureBox4.TabStop = false;
+            // 
+            // LoginThreadTimer
+            // 
+            this.LoginThreadTimer.Tick += new System.EventHandler(this.LoginThreadTimer_Tick);
+            // 
+            // REGISTER_Password2
+            // 
+            this.REGISTER_Password2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.REGISTER_Password2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.REGISTER_Password2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.REGISTER_Password2.Location = new System.Drawing.Point(17, 284);
+            this.REGISTER_Password2.MaxLength = 40;
+            this.REGISTER_Password2.Multiline = false;
+            this.REGISTER_Password2.Name = "REGISTER_Password2";
+            this.REGISTER_Password2.ShortcutsEnabled = false;
+            this.REGISTER_Password2.Size = new System.Drawing.Size(717, 24);
+            this.REGISTER_Password2.TabIndex = 16;
+            this.REGISTER_Password2.Text = "";
+            // 
+            // REGISTER_Password
+            // 
+            this.REGISTER_Password.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.REGISTER_Password.Cursor = System.Windows.Forms.Cursors.Default;
+            this.REGISTER_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.REGISTER_Password.Location = new System.Drawing.Point(17, 195);
+            this.REGISTER_Password.MaxLength = 40;
+            this.REGISTER_Password.Multiline = false;
+            this.REGISTER_Password.Name = "REGISTER_Password";
+            this.REGISTER_Password.ShortcutsEnabled = false;
+            this.REGISTER_Password.Size = new System.Drawing.Size(717, 24);
+            this.REGISTER_Password.TabIndex = 13;
+            this.REGISTER_Password.Text = "";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox2.Font = new System.Drawing.Font("Lucida Sans Unicode", 20F, System.Drawing.FontStyle.Italic);
+            this.textBox2.Location = new System.Drawing.Point(17, 252);
+            this.textBox2.MaxLength = 40;
+            this.textBox2.Multiline = false;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ShortcutsEnabled = false;
+            this.textBox2.Size = new System.Drawing.Size(469, 35);
+            this.textBox2.TabIndex = 13;
+            this.textBox2.Text = "";
             // 
             // Game
             // 
@@ -548,5 +555,6 @@
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.Timer LoginThreadTimer;
     }
 }

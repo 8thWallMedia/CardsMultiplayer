@@ -20,6 +20,10 @@ namespace CardsMultiplayer
     public partial class Game : Form
     {
         public bool ACTION_REGISTER = false;
+        public bool ON_LOGIN = false;
+        public string AUTH_USER = "";
+        public string AUTH_PASS = "";
+        public bool AUTH = false;
         ClientCursors clientCursors = new ClientCursors();
         WindowsScreenInteract WinAPI = new WindowsScreenInteract();
         public string PasswordInputText = "";
@@ -39,13 +43,10 @@ namespace CardsMultiplayer
 
         private void Game_Load(object sender, EventArgs e)
         {
-            registerPanel.Width = 529;
-            registerPanel.Height = 529;
-            authenticationPanel.Width = 504;
-            authenticationPanel.Height = 394;
             Cursor.Hide();
             panel1.Hide();
             registerPanel.Hide();
+            
             WinAPI.Maximize(this);
             Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
             textBox1.Cursor = clientCursors.getCursor(clientCursors.Cursor_Launcher_Normal);
@@ -72,8 +73,7 @@ namespace CardsMultiplayer
             authenticationPanel.Anchor = AnchorStyles.None;
             registerPanel.BackColor = Color.FromArgb(100, Color.Black);
             registerPanel.Location = new Point(this.ClientSize.Width / 2 - registerPanel.Size.Width / 2, this.ClientSize.Height / 2 - registerPanel.Size.Height / 2);
-            registerPanel.Anchor = AnchorStyles.None; 
-
+            registerPanel.Anchor = AnchorStyles.None;
             Disclaimer D = new Disclaimer();
             D.TopMost = true;
             D.StartPosition = FormStartPosition.CenterScreen;
@@ -84,13 +84,9 @@ namespace CardsMultiplayer
         private void Stage2(object sender, FormClosingEventArgs e)
         {
             Cursor.Show();
-
             panel1.BackgroundImage = Properties.Resources.Space_space_584336_1600_1200_1_;
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Show();
-
-            
-            //authenticationPanel.BackColor = Color.FromArgb(25, Color.Black);
         }
 
         private void Game_FormClosing(object sender, FormClosingEventArgs e)
@@ -111,45 +107,23 @@ namespace CardsMultiplayer
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             authenticationPanel.Hide();
+            ON_LOGIN = false;
             registerPanel.Show();
         }
 
-        private void ShowError(int errornumber)
+        private void ShowError(int errornumber, bool onRegister=false)
         {
-            label3.Invoke(new MethodInvoker(() => label3.Text = "[" + errornumber + "] " + ErrorHandler.GetErrorMessage(errornumber)));
-            developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("[ERROR PROMPT]Error " + errornumber + " Displayed." + Environment.NewLine)));
-            ErrorMessageInfo EMI = new ErrorMessageInfo(errornumber);
-            showErrorThreadAccess(EMI);
-        }
-
-        private void showErrorThreadAccess(object state)
-        {
-            pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = false));
-            pictureBox5.Invoke(new MethodInvoker(() => pictureBox5.Enabled = false));
-            try
+            Label errorLabel;
+            if (onRegister)
+                errorLabel = REGISTER_Label;
+            else
+                errorLabel = label3;
+            errorLabel.Text = "[" + errornumber + "] " + ErrorHandler.GetErrorMessage(errornumber);
+            developerOutput.AppendText("[ERROR PROMPT]Error " + errornumber + " Displayed." + Environment.NewLine);
+            if (errornumber != ErrorHandler.LOGIN_OK && errornumber != ErrorHandler.REGISTER_OK)
             {
-                ErrorMessageInfo EMI = (ErrorMessageInfo)state;
-                errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb(0, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
-                label3.Invoke(new MethodInvoker(() => label3.Hide()));
-                do
-                {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) + 50, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
-                    Thread.Sleep(10);
-                } while (errorPanel.BackColor.A < 200);
-                label3.Invoke(new MethodInvoker(() => label3.Show()));
-                Thread.Sleep(3000);
-                label3.Invoke(new MethodInvoker(() => label3.Hide()));
-                do
-                {
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb((errorPanel.BackColor.A) - 50, errorPanel.BackColor.R, errorPanel.BackColor.G, errorPanel.BackColor.B)));
-                    Thread.Sleep(10);
-                } while (errorPanel.BackColor.A > 0);
-                
+                errorLabel.ForeColor = Color.Red;
             }
-            catch (ArgumentException)
-            {
-            }
-            
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
@@ -172,66 +146,26 @@ namespace CardsMultiplayer
             pictureBox5.Image = Properties.Resources.LoginButton;
         }
 
-        private void DoLogin(object state)
+        private void DoLogin()
         {
-
-            textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = false));
-            textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = false));
-            ConnectionManager CM = new ConnectionManager("vbproject.redirectme.net");
-            string password = "";
-            string username = "";
-            textBox2.Invoke(new MethodInvoker(() => password = Security.md5(textBox2.Text)));
-            textBox1.Invoke(new MethodInvoker(() => username = textBox1.Text));
-            int ResponseCode = 0;
-            if (ACTION_REGISTER)
-            {
-                ResponseCode = Convert.ToInt32(CM.sendSignal("command=regauth;username=" + textBox1.Text + ";password=" + textBox2.Text, true));
-                if (ResponseCode == 600)
-                {
-                    textBox2.Invoke(new MethodInvoker(() => textBox2.Text = ""));
-                    label2.Invoke(new MethodInvoker(() => label2.Text = "Password"));
-                    ACTION_REGISTER = false;
-                }
-                else
-                {
-                    ShowError(ResponseCode);
-                }
-            }
-            else
-            {
-                ResponseCode = Convert.ToInt32(CM.sendSignal("command=auth;username=" + username + ";password=" + password, true));
-                developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine)));
-                if (ResponseCode == ErrorHandler.LOGIN_OK)
-                {
-                    developerOutput.Invoke(new MethodInvoker(() => developerOutput.AppendText("LOGIN OK" + Environment.NewLine)));
-                    errorPanel.Invoke(new MethodInvoker(() => errorPanel.BackColor = Color.FromArgb(0, 0, 255, 0)));
-                    ShowError(100);
-                    authenticationPanel.Hide();
-                    MainGameForm MGF = new MainGameForm(username, password);
-                    MGF.ShowDialog();
-                }
-                else if (ResponseCode == ErrorHandler.NOERROR_REGISTRATION_VALIDATION)
-                {
-                    label2.Invoke(new MethodInvoker(() => label2.Text = "Registration Code (from validation email)"));
-                    textBox2.Invoke(new MethodInvoker(() => textBox2.Text = ""));
-                    textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = false));
-                    ShowError(ResponseCode);
-                    ACTION_REGISTER = true;
-                }
-                else
-                    ShowError(ResponseCode);
-            }
-            authenticationPanel.Invoke(new MethodInvoker(() => authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.CursorImage, 0, 0)));
-            pictureBox1.Invoke(new MethodInvoker(() => pictureBox1.Enabled = true));
-            pictureBox5.Invoke(new MethodInvoker(() => pictureBox5.Enabled = true));
-            textBox1.Invoke(new MethodInvoker(() => textBox1.Enabled = true));
-            textBox2.Invoke(new MethodInvoker(() => textBox2.Enabled = true));
+            
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
+            errorPanel.BackColor = Color.Black;
+            errorPanel.Show();
+            label3.ForeColor = Color.White;
+            label3.Text = "Processing Request..";
+            label3.Show();
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            pictureBox1.Enabled = false;
+            pictureBox5.Enabled = false;
+            LoginThreadTimer.Start();
             authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.Sword_icon_animated, 0, 0);
-            ThreadPool.QueueUserWorkItem(DoLogin);            
+
+            
         }
 
         private void authenticationPanel_Paint(object sender, PaintEventArgs e)
@@ -241,6 +175,7 @@ namespace CardsMultiplayer
 
         private void pictureBox11_Click(object sender, EventArgs e)
         {
+            ON_LOGIN = true;
             registerPanel.Hide();
             authenticationPanel.Show();
         }
@@ -284,6 +219,13 @@ namespace CardsMultiplayer
         {
             REGISTER_Label.Text = "Please wait, processing your request..";
             REGISTER_Label.Show();
+            ConnectionManager CM = new ConnectionManager("vbproject.redirectme.net");
+            string password = Security.md5(REGISTER_Password.Text);
+            string username = Register_USERNAME.Text;
+            string email = REGISTER_Email.Text ;
+
+            int ReturnCode = CM.sendSignal("command=register;username=" + username + ";password=" + password + ";email=" + email, true);
+            ShowError(ReturnCode, true);
         }
 
         private void pictureBox8_MouseEnter(object sender, EventArgs e)
@@ -294,6 +236,82 @@ namespace CardsMultiplayer
         private void pictureBox8_MouseLeave(object sender, EventArgs e)
         {
             pictureBox8.Image = Properties.Resources.RegisterButton;
+        }
+
+        private void authenticationPanel_VisibleChanged(object sender, EventArgs e)
+        {
+        }
+
+        public void ExitMainGame(object sender, FormClosingEventArgs ex)
+        {
+            authenticationPanel.Show();
+            textBox1.Clear();
+            textBox2.Clear();
+        }
+
+        private void LoginThreadTimer_Tick(object sender, EventArgs e)
+        {
+            LoginThreadTimer.Stop();
+            
+            string password = "";
+            string username = "";
+            password = Security.md5(textBox2.Text);
+            developerOutput.AppendText("[INFO]Encrypt -> " + password + Environment.NewLine);
+            username = textBox1.Text;
+            ConnectionManager CM = new ConnectionManager("vbproject.redirectme.net");
+            int ResponseCode = -1;
+            bool errorNow = false;
+            if(username.Contains(";")) {
+                errorNow = true;
+                ResponseCode = ErrorHandler.ERROR_INVALID_CHARACTERS;
+            }
+            if(!errorNow) {
+                if (ACTION_REGISTER)
+                {
+                    ResponseCode = CM.sendSignal("command=regauth;username=" + textBox1.Text + ";password=" + textBox2.Text, true);
+                    if (ResponseCode == 600)
+                    {
+                        textBox2.Clear();
+                        label2.Text = "Password";
+                        ACTION_REGISTER = false;
+                    }
+                    else
+                    {
+                        ShowError(ResponseCode);
+                    }
+                }
+                else
+                {
+                    ResponseCode = CM.sendSignal("command=auth;username=" + username + ";password=" + password, true);
+                    if (ResponseCode == ErrorHandler.LOGIN_OK)
+                    {
+                        developerOutput.AppendText("LOGIN OK" + Environment.NewLine);
+                        errorPanel.BackColor = Color.FromArgb(0, 0, 255, 0);
+                        ShowError(100);
+                        authenticationPanel.Hide();
+                        MainGameForm MGF = new MainGameForm(username, password, this);
+                        MGF.FormClosing += new FormClosingEventHandler(ExitMainGame);
+                        MGF.TopMost = true;
+                        MGF.ShowDialog();
+                        label3.Text = "";
+                    }
+                    else if (ResponseCode == ErrorHandler.NOERROR_REGISTRATION_VALIDATION)
+                    {
+                        label2.Text = "Registration Code (from validation email)";
+                        textBox2.Text = "";
+                        textBox1.Enabled = false;
+                        ShowError(ResponseCode);
+                        ACTION_REGISTER = true;
+                    }
+                    else
+                        ShowError(ResponseCode);
+                }
+            }
+            authenticationPanel.Cursor = clientCursors.CreateCursor(Properties.Resources.CursorImage, 0, 0);
+            pictureBox1.Enabled = true;
+            pictureBox5.Enabled = true;
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
         }
     }
     public class WindowsScreenInteract
@@ -359,5 +377,13 @@ namespace CardsMultiplayer
         {
             ErrorNum = error;
         }
+    }
+
+    public class SignalState
+    {
+        public EventWaitHandle eventWaitHandle = new ManualResetEvent(false);
+        public int result;
+        public string command;
+        public bool returnResult;
     }
 }
